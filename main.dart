@@ -9,14 +9,12 @@ import 'firebase_options.dart';
 import 'screens/welcome_screen.dart';
 
 final ValueNotifier<bool> isArabicNotifier = ValueNotifier<bool>(true); 
-// افتراضياً عربي... منطقي يعني 
 
 class PharmacyInfo {
   final String name;
   final LatLng location;
 
   PharmacyInfo(this.name, this.location);
-  //ممكن اشتغل عليه بعدين
 }
 
 
@@ -27,39 +25,32 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   );
 
   print("🚨 إشعار وصل بالخلفية: ${message.notification?.title}");
-  // لو ما اشتغلت... غالباً المشكلة من Firebase (أكيد مش مني طبعاً )
 }
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); 
-  // بدون هاي السطر الأشياء بتخرب بطريقة غريبة… بعرفش كيف
 
-  // تهيئة Firebase
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  // ربط الإشعارات بالخلفية
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   FirebaseMessaging messaging = FirebaseMessaging.instance;
 
-  // طلب صلاحيات الإشعارات (يارب المستخدم يوافق )
   await messaging.requestPermission(
     alert: true,
     badge: true,
     sound: true,
   );
 
-  // تشغيل واجهة التطبيق أول عشان الشاشة تفتح فوراً وما تعلق! 
   runApp(const NashmiRescueApp());
 
-  // الاشتراك التلقائي في مجموعة "كل المسعفين" 
-  // (بدون await عشان يشتغل بصمت بالخلفية والتطبيق فاتح)
+  
   messaging.subscribeToTopic('all_paramedics').then((value) {
-    print('✅ تم الاشتراك بنجاح في مجموعة المسعفين! التطبيق جاهز لاستقبال نداء 911');
+    print(' تم الاشتراك بنجاح في مجموعة المسعفين! التطبيق جاهز لاستقبال نداء 911');
   }).catchError((error) {
-    print('❌ فشل الاشتراك: $error'); //أكيد المشكلة من فايربيس مش مني 
+    print(' فشل الاشتراك: $error'); 
   });
 }
 
@@ -72,17 +63,15 @@ class NashmiRescueApp extends StatelessWidget {
       valueListenable: isArabicNotifier,
       builder: (context, isArabic, child) {
         return MaterialApp(
-          debugShowCheckedModeBanner: false, // لأنه شكله مزعج بصراحة
+          debugShowCheckedModeBanner: false,
           title: 'Nashmi Rescue',
 
           theme: ThemeData(
-            primarySwatch: Colors.red, // أحمر = طوارئ = منطقي
+            primarySwatch: Colors.red, 
             fontFamily: isArabic ? 'Tahoma' : 'Roboto',
-            // لو الخط خرب... blame fonts مش الكود 
           ),
 
           home: const WelcomeScreen(), 
-          // نقطة البداية… كل الطرق تؤدي لهون
 
           builder: (context, child) {
             return Directionality(
