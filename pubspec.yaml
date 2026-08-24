@@ -1,0 +1,44 @@
+name: nashmi
+description: "A new Flutter project."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  google_maps_flutter: ^2.16.0
+  vibration: ^3.1.8
+  audioplayers: ^5.2.1
+  geolocator: ^14.0.2
+  firebase_core: ^4.7.0
+  firebase_database: ^12.3.0
+  firebase_messaging: ^16.2.0
+  flutter_local_notifications: ^17.0.0
+  google_generative_ai: ^0.4.7
+  http: ^1.6.0
+  googleapis_auth: ^2.3.0
+  speech_to_text: ^7.3.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_launcher_icons: "^0.13.1"
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+  
+  
+  assets:
+    - assets/nashmi-key.json
+    - assets/logo.png  
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/logo.png"
+  min_sdk_android: 21
